@@ -6,12 +6,14 @@ mod code;
 mod emphasis;
 mod image;
 mod link;
+mod widget;
 mod strong;
 use self::br::parse_break;
 use self::code::parse_code;
 use self::emphasis::parse_emphasis;
 use self::image::parse_image;
 use self::link::parse_link;
+use self::widget::parse_widget;
 use self::strong::parse_strong;
 
 pub fn parse_spans(text: &str) -> Vec<Span> {
@@ -83,6 +85,7 @@ fn parse_span(text: &str) -> Option<(Span, usize)> {
     => parse_break
     => parse_image
     => parse_link
+    => parse_widget
     )
 }
 

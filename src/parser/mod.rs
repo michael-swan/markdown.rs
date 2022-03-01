@@ -73,6 +73,7 @@ pub enum Span {
 
     Emphasis(Vec<Span>),
     Strong(Vec<Span>),
+    Widget(String),
 }
 
 pub fn parse(md: &str) -> Vec<Block> {

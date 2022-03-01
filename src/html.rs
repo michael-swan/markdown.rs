@@ -2,7 +2,7 @@ use parser::Block;
 use parser::Block::{
     Blockquote, CodeBlock, Header, Hr, LinkReference, OrderedList, Paragraph, Raw, UnorderedList,
 };
-use parser::Span::{Break, Code, Emphasis, Image, Link, Literal, RefLink, Strong, Text};
+use parser::Span::{Break, Code, Emphasis, Image, Link, Widget, Literal, RefLink, Strong, Text};
 use parser::{ListItem, OrderedListType, Span};
 use regex::Regex;
 use std::collections::HashMap;
@@ -22,6 +22,7 @@ fn slugify(elements: &[Span], no_spaces: bool) -> String {
             | Link(ref content, _, _)
             | Strong(ref content)
             | Emphasis(ref content) => slugify(content, no_spaces),
+            Widget(_) => todo!(),
         };
         if !ret.is_empty() {
             ret.push('_');
@@ -140,6 +141,7 @@ fn format_spans(elements: &[Span], link_references: &LinkReferenceMap) -> String
                 "<strong>{}</strong>",
                 format_spans(content, link_references)
             ),
+            Widget(_) => todo!(),
         };
         ret.push_str(&next)
     }
